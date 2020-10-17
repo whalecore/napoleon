@@ -1,0 +1,4 @@
+console.error: SearchCache: "_readCacheFile: Error reading cache file:" (new Error("", "(unknown module)"))
+1602829802235	Marionette	INFO	Listening on port 34617
+1602829802329	Marionette	WARN	TLS certificate errors will be ignored for this session
+1602829824255	Marionette	INFO	Stopped listening on port 34617
