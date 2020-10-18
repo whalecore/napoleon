@@ -26,7 +26,7 @@ import random, string
 
 logging.basicConfig(level=logging.DEBUG)
 
-BOT_TOKEN = '1252484349:AAGC4t5-PzwZq-0Q56mOxfduGfcZamDSWDo'
+BOT_TOKEN = ''
 
 bot = Bot(token=BOT_TOKEN)
 
