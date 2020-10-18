@@ -110,7 +110,7 @@ async def voice_pitch(message: types.Message, state: FSMContext):
 
 @dp.message_handler(state='*', text=['Отмена'])
 async def cancel(message: types.Message, state: FSMContext):
-    keyboard = ReplyKeyboardMarkup()
+    keyboard = ReplyKeyboardMarkup(resize_keyboard=True)
     btns = ["Вики", "Тембр голоса", "Фото"]
     for btn in btns:
         keyboard.add(btn)
