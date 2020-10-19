@@ -28,7 +28,7 @@ import os
 
 logging.basicConfig(level=logging.DEBUG)
 
-BOT_TOKEN = ''
+BOT_TOKEN = os.environ['TOKEN']
 
 bot = Bot(token=BOT_TOKEN)
 
