@@ -19,10 +19,12 @@ from parser import search_wiki
 from aiohttp.helpers import current_task
 
 import requests
-from functions import hi_pitch, low_pitch, low_pitch_new, get_hi_pitch
+from functions import hi_pitch, low_pitch
 from io import BufferedWriter
 
-import random, string
+import random
+import string
+import os
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -138,10 +140,13 @@ async def high(message: types.Message, state: FSMContext):
     await Form.voice.set()
 
     file_info = await bot.get_file(message.voice.file_id)
-    random_name = ''.join(random.choice(string.ascii_lowercase) for i in range(8)) + '.ogg'
+    random_name = ''.join(random.choice(string.ascii_lowercase)
+                          for i in range(8)) + '.ogg'
     await bot.download_file(file_info.file_path, random_name)
     hp_file = hi_pitch(random_name)
     await bot.send_audio(message.chat.id, audio=open(hp_file, 'rb'))
+    os.remove(random_name)
+    os.remove(hp_file)
 
 
 @dp.message_handler(state=Form.voice, text=['Низкий'])
@@ -153,6 +158,7 @@ async def get_voice(message: types.Message, state: FSMContext):
         "Прошу вас записать мне голосовое сообщение, mon ami!"
     )
 
+
 @dp.message_handler(state=Form.voice_low, content_types=ContentTypes.VOICE)
 async def high(message: types.Message, state: FSMContext):
     await bot.send_message(
@@ -162,10 +168,14 @@ async def high(message: types.Message, state: FSMContext):
     await Form.voice.set()
 
     file_info = await bot.get_file(message.voice.file_id)
-    random_name = ''.join(random.choice(string.ascii_lowercase) for i in range(8)) + '.ogg'
+    random_name = ''.join(random.choice(string.ascii_lowercase)
+                          for i in range(8)) + '.ogg'
     await bot.download_file(file_info.file_path, random_name)
     hp_file = low_pitch(random_name)
     await bot.send_audio(message.chat.id, audio=open(hp_file, 'rb'))
+    os.remove(random_name)
+    os.remove(hp_file)
+
 
 @dp.message_handler(state="*", text=['Фото'])
 async def photo(message: types.Message):
